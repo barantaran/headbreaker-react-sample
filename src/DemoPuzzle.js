@@ -1,5 +1,6 @@
 import { Canvas, painters } from 'headbreaker';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const puzzleSize = 700;
 const pieceQuantity = 4;
@@ -51,9 +52,15 @@ function DemoPuzzle({ id }) {
 }
 
 export default function Home() {
+  const navigate = useNavigate();
+  const handleClose = () => {
+    navigate('/');
+  }
+
   return (
     <main>
       <DemoPuzzle id="puzzle" />
+      <button onClick={handleClose}>Close</button>
     </main>
   )
 }
