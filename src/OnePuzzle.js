@@ -1,29 +1,29 @@
 import { Canvas, painters } from 'headbreaker';
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const puzzleSize = 700;
 const pieceQuantity = 4;
-const pieceSize = puzzleSize / ( pieceQuantity * 1.55 );
+const pieceSize = puzzleSize / ( pieceQuantity * 1.75 );
 
-function DemoPuzzle({ id }) {
+function OnePuzzle({ id, currentImage }) {
   const puzzleRef = useRef(null)
 
   useEffect(() => {
     let puzzleImage = new Image();
-    puzzleImage.src = '/photorealistic_face_of_ancient_daemon_700px.png';
+    puzzleImage.src = '/' + currentImage;
     
     puzzleImage.onload = () => {
 
         const puzzle = puzzleRef.current
         const canvas = new Canvas(puzzle.id, {
-            width: puzzleSize,
+            width: puzzleSize * 1.33,
             height: puzzleSize,
             pieceSize: pieceSize,
             proximity: pieceSize / 6,
             borderFill: pieceSize / 10,
-            strokeColor: '#282c34',
-            strokeWidth: 3,
+            // strokeColor: '#282c34',
+            strokeWidth: 0,
             lineSoftness: 0.1,
             image: puzzleImage,
             painter: new painters.Konva() // <-- this is important. See https://github.com/flbulgarelli/headbreaker/issues/51
@@ -43,15 +43,16 @@ function DemoPuzzle({ id }) {
             canvas.solve();
             canvas.redraw();
           };
-        }, false);
+        });
         
     }
-  }, [])
+  }, [currentImage])
 
   return <div ref={puzzleRef} id={id}></div>
 }
 
-export default function Home() {
+export default function Puzzle() {
+  let location = useLocation();
   const navigate = useNavigate();
   const handleClose = () => {
     navigate('/');
@@ -59,8 +60,8 @@ export default function Home() {
 
   return (
     <main>
-      <DemoPuzzle id="puzzle" />
-      <button onClick={handleClose}>Close</button>
+      <OnePuzzle id="puzzle" currentImage ={location.state.currentImage} />
+      <button onClick={handleClose} >Close</button>
     </main>
   )
 }

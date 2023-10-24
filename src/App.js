@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import RootMenu from './components/RootMenu/RootMenu';
-import Home from './DemoPuzzle';
+import Puzzle from './OnePuzzle';
 
 const router = createBrowserRouter([
   {
@@ -12,8 +12,8 @@ const router = createBrowserRouter([
     element: <RootMenu />,
   },
   {
-    path: "/DemoPuzzle",
-    element: <Home />,
+    path: "/OnePuzzle",
+    element: <Puzzle />,
   }
 ]);
 
