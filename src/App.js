@@ -1,6 +1,10 @@
 import './App.css';
 import { Canvas, painters } from 'headbreaker';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+const puzzleSize = 700;
+const pieceQuantity = 4;
+const pieceSize = puzzleSize / ( pieceQuantity * 1.75 );
 
 const puzzleImages = [
   {
@@ -23,11 +27,7 @@ const puzzleImages = [
   }
 ]
 
-const puzzleSize = 700;
-const pieceQuantity = 4;
-const pieceSize = puzzleSize / ( pieceQuantity * 1.75 );
-
-function PuzzleGame({ id, currentImage }) {
+function ShowPuzzle({ id, currentImage }) {
   const puzzleRef = useRef(null)
   useEffect(() => {
     const container = document.getElementById('gameroot').shadowRoot.getElementById('puzzle');
@@ -70,10 +70,41 @@ function PuzzleGame({ id, currentImage }) {
   return <div ref={puzzleRef} id={id}></div>
 }
 
+function ShowGallery(props) {
+  return (
+    <div className="gallery">
+      {props.puzzleImages.map((image, index) => (
+        <div className="gallery-item" key={index}>
+          <img src={image.thumb} alt={image.name} />
+          <button type="button" onClick={() => props.setCurrentImageIndex(index)}>
+            Unpuzzle
+          </button>
+          {image.name}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function App() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const changeImage = () => {
+    setCurrentImageIndex(-1);
+  };
+
   return (
     <div className="App">
-      <PuzzleGame id="puzzle" currentImage ={puzzleImages[0].thumb} />
+      {currentImageIndex === -1 ? (
+        <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex}/>
+      ) : (
+        <div>
+          <button type="button" onClick={changeImage}>
+            To Gallery
+          </button>
+          <ShowPuzzle id="puzzle" currentImage ={puzzleImages[currentImageIndex].path} />
+        </div>
+      )}
     </div>
   );
 }
