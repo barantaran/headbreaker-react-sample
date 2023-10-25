@@ -1,5 +1,6 @@
 import './App.css';
-import { Canvas, painters } from 'headbreaker';
+import { Canvas, painters, Puzzle } from 'headbreaker';
+import md5 from 'md5';
 import { useEffect, useRef, useState } from 'react';
 
 const puzzleSize = 700;
@@ -27,49 +28,6 @@ const puzzleImages = [
   }
 ]
 
-function ShowPuzzle({ id, currentImage }) {
-  const puzzleRef = useRef(null)
-  useEffect(() => {
-    const container = document.getElementById('gameroot').shadowRoot.getElementById('puzzle');
-    let puzzleImage = new Image();
-    puzzleImage.src = '/' + currentImage;
-    
-    puzzleImage.onload = () => {
-
-        const canvas = new Canvas(container, {
-            width: puzzleSize * 1.33,
-            height: puzzleSize,
-            pieceSize: pieceSize,
-            proximity: pieceSize / 6,
-            borderFill: pieceSize / 10,
-            strokeWidth: 0,
-            lineSoftness: 0.1,
-            image: puzzleImage,
-            painter: new painters.Konva() // <-- this is important. See https://github.com/flbulgarelli/headbreaker/issues/51
-        });
-    
-        canvas.adjustImagesToPuzzleHeight();
-        canvas.autogenerate({
-          horizontalPiecesCount: pieceQuantity,
-          verticalPiecesCount: pieceQuantity
-        });
-    
-        canvas.shuffleGrid();
-        canvas.draw();
-
-        document.addEventListener('keypress', (event) => {
-          if(event.key === 's') {
-            canvas.solve();
-            canvas.redraw();
-          };
-        });
-        
-    }
-  }, [currentImage])
-
-  return <div ref={puzzleRef} id={id}></div>
-}
-
 function ShowGallery(props) {
   return (
     <div className="gallery">
@@ -90,26 +48,93 @@ function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [appHidden, setAppHidden] = useState(false);
 
-  const changeImage = () => {
+  const showGallery = () => {
+    dumpPuzzle();
     setCurrentImageIndex(-1);
   };
 
-  const toggleAppVisibility = () => {
-    setAppHidden(!appHidden);
+  const hideApp = () => {
+    setAppHidden(true);
+    if(canvas !== undefined) dumpPuzzle();
   };
+
+  const showApp = () => {
+    setAppHidden(false);
+  };
+
+  function dumpPuzzle() {
+    let dump = JSON.stringify(canvas.puzzle.export({ compact: true }));
+    let key = md5(canvas.imageMetadata.content.currentSrc);
+    
+    localStorage.setItem(key, dump);
+  }
   
+  let canvas;
+  function ShowPuzzle({ id, currentImage }) {
+    const puzzleRef = useRef(null)
+
+    useEffect(() => {
+      const container = document.getElementById('gameroot').shadowRoot.getElementById('puzzle');
+      let puzzleImage = new Image();
+      puzzleImage.src = '/' + currentImage;
+
+      puzzleImage.onload = () => {
+
+        canvas = new Canvas(container, {
+          width: puzzleSize * 1.33,
+          height: puzzleSize,
+          pieceSize: pieceSize,
+          proximity: pieceSize / 6,
+          borderFill: pieceSize / 10,
+          strokeWidth: 0,
+          lineSoftness: 0.1,
+          image: puzzleImage,
+          painter: new painters.Konva() // <-- this is important. See https://github.com/flbulgarelli/headbreaker/issues/51
+        });
+
+        canvas.adjustImagesToPuzzleHeight();
+        canvas.autogenerate({
+          horizontalPiecesCount: pieceQuantity,
+          verticalPiecesCount: pieceQuantity
+        });
+
+        //Try to load puzzle dump from local storage
+        let key = md5(canvas.imageMetadata.content.currentSrc);
+        let dump = localStorage.getItem(key);
+        if (dump) {
+          canvas.clear();
+          canvas.renderPuzzle(Puzzle.import(JSON.parse(dump)));
+        } else {
+          canvas.shuffleGrid();
+        }
+
+        canvas.draw();
+
+        document.addEventListener('keypress', (event) => {
+          if (event.key === 's') {
+            canvas.solve();
+            canvas.redraw();
+          };
+        });
+
+      }
+    }, [currentImage])
+
+    return <div ref={puzzleRef} id={id}></div>
+  }
+
   return (
     <>
       {!appHidden && (
         <div className="App">
-          <button type="button" onClick={toggleAppVisibility}>
+          <button type="button" onClick={hideApp}>
             Hide App
           </button>
           {currentImageIndex === -1 ? (
             <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex} />
           ) : (
             <div>
-              <button type="button" onClick={changeImage}>
+              <button type="button" onClick={showGallery}>
                 To Gallery
               </button>
               <ShowPuzzle id="puzzle" currentImage={puzzleImages[currentImageIndex].path} />
@@ -118,7 +143,7 @@ function App() {
         </div>
       )}
       {appHidden && (
-        <button type="button" onClick={toggleAppVisibility}>
+        <button type="button" onClick={showApp}>
           Show App
         </button>
       )}
