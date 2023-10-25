@@ -88,24 +88,41 @@ function ShowGallery(props) {
 
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [appHidden, setAppHidden] = useState(false);
 
   const changeImage = () => {
     setCurrentImageIndex(-1);
   };
 
+  const toggleAppVisibility = () => {
+    setAppHidden(!appHidden);
+  };
+  
   return (
-    <div className="App">
-      {currentImageIndex === -1 ? (
-        <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex}/>
-      ) : (
-        <div>
-          <button type="button" onClick={changeImage}>
-            To Gallery
+    <>
+      {!appHidden && (
+        <div className="App">
+          <button type="button" onClick={toggleAppVisibility}>
+            Hide App
           </button>
-          <ShowPuzzle id="puzzle" currentImage ={puzzleImages[currentImageIndex].path} />
+          {currentImageIndex === -1 ? (
+            <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex} />
+          ) : (
+            <div>
+              <button type="button" onClick={changeImage}>
+                To Gallery
+              </button>
+              <ShowPuzzle id="puzzle" currentImage={puzzleImages[currentImageIndex].path} />
+            </div>
+          )}
         </div>
       )}
-    </div>
+      {appHidden && (
+        <button type="button" onClick={toggleAppVisibility}>
+          Show App
+        </button>
+      )}
+    </>
   );
 }
 
