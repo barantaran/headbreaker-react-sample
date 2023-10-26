@@ -1,7 +1,7 @@
 import './App.css';
 import { Canvas, painters, Puzzle } from 'headbreaker';
-import md5 from 'md5';
 import { useEffect, useRef, useState } from 'react';
+import * as PuzzleDump from './PuzzleDump';
 
 const puzzleSize = 700;
 const pieceQuantity = 4;
@@ -62,17 +62,29 @@ function App() {
     setAppHidden(false);
   };
 
-  function dumpPuzzle() {
+  const dumpPuzzle = () => {
     let dump = JSON.stringify(canvas.puzzle.export({ compact: true }));
-    let key = md5(canvas.imageMetadata.content.currentSrc);
+    let key = PuzzleDump.getPuzzleKey(canvas.imageMetadata.content.currentSrc);
     
     localStorage.setItem(key, dump);
   }
-  
+
+  const clearPuzzleDumps = () => {
+    for (let i = 0; i < puzzleImages.length; i++){
+      let key = PuzzleDump.getPuzzleKey(puzzleImages[i].path);
+
+      try {
+        localStorage.removeItem(key);
+      } catch (error) {
+        
+      }
+    }
+  }
+
   let canvas;
   function ShowPuzzle({ id, currentImage }) {
     const puzzleRef = useRef(null)
-
+    
     useEffect(() => {
       const container = document.getElementById('gameroot').shadowRoot.getElementById('puzzle');
       let puzzleImage = new Image();
@@ -99,7 +111,7 @@ function App() {
         });
 
         //Try to load puzzle dump from local storage
-        let key = md5(canvas.imageMetadata.content.currentSrc);
+        let key = PuzzleDump.getPuzzleKey(canvas.imageMetadata.content.currentSrc);
         let dump = localStorage.getItem(key);
         if (dump) {
           canvas.clear();
@@ -135,7 +147,12 @@ function App() {
             Hide App
           </button>
           {currentImageIndex === -1 ? (
-            <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex} />
+            <div>
+              <button type="button" onClick={clearPuzzleDumps}>
+                ShuffleAll
+              </button>
+              <ShowGallery puzzleImages={puzzleImages} setCurrentImageIndex={setCurrentImageIndex} />
+            </div>
           ) : (
             <div>
               <button type="button" onClick={showGallery}>
