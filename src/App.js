@@ -110,6 +110,10 @@ function App() {
 
         canvas.draw();
 
+        canvas.attachSolvedValidator();
+        canvas.onValid(() => {
+        })
+
         document.addEventListener('keypress', (event) => {
           if (event.key === 's') {
             canvas.solve();
