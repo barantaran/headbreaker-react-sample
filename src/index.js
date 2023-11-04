@@ -10,12 +10,14 @@ ReactDOM.createRoot(
   document
   .getElementById('gameroot')
   .attachShadow({ mode: "open" }))
+  // .getElementById('gameroot'))
   .render(
-  <React.StrictMode>
-    <style>{styles}</style>
-    <App />
-  </React.StrictMode>
-);
+    <>
+      <style>{styles}</style>
+      <div id="puzzle"></div>
+      <App />
+    </>
+  );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
