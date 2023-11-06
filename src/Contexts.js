@@ -19,6 +19,18 @@ export const PuzzlesContext = createContext(
           thumb: "images/bug_face_thumb_200px.png",
           path: "images/bug_face_700px.png",
           HDURL: "https://www.artstation.com/artwork/8lQYV",  
+        },
+        {
+          name: "bug_face",
+          thumb: "images/bug_face_thumb_200px.png",
+          path: "images/bug_face_700px.png",
+          HDURL: "https://www.artstation.com/artwork/8lQYV",  
+        },
+        {
+          name: "bug_face",
+          thumb: "images/bug_face_thumb_200px.png",
+          path: "images/bug_face_700px.png",
+          HDURL: "https://www.artstation.com/artwork/8lQYV",  
         }
       ]
 );

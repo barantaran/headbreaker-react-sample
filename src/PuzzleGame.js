@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import { Canvas, painters, Puzzle } from 'headbreaker';
 import { useContext, useEffect } from 'react';
@@ -33,7 +32,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
     } else {
       setIsSolved(false);
     }
-  }, [currentPuzzle]);
+  }, [currentPuzzle, Puzzles]);
 
   if(appHidden) {
     if (container !== null) {
@@ -58,8 +57,8 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
 
     container = document.getElementById('gameroot').shadowRoot.querySelector('#'+id);
     canvas = new Canvas(container, {
-      width: puzzleSize * 1.33,
-      height: puzzleSize,
+      width: 1135,
+      height: 650,
       pieceSize: pieceSize,
       proximity: pieceSize / 6,
       borderFill: pieceSize / 10,
@@ -67,6 +66,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
       lineSoftness: 0.1,
       image: puzzleImage,
       fixed: true,
+      preventOffstageDrag: true,
       painter: new painters.Konva() // <-- this is important. See https://github.com/flbulgarelli/headbreaker/issues/51
     });
 
@@ -107,9 +107,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
   }
 
   return (
-    <>
       <PrizeButton solved={isSolved} HDURL={Puzzles[currentPuzzle].HDURL}/>
-    </>
   );
 }
 
