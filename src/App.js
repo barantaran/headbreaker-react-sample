@@ -40,7 +40,7 @@ export default function App() {
       <div className='row gallery'>
         <Gallery setPuzzleIndex={setPuzzleIndex} />
         <div className='puzzle-ui'>
-          <button onClick={() => { setAppHidden(!appHidden) }}>Toggle</button>
+          <button className='close-btn' onClick={() => { setAppHidden(!appHidden) }}></button>
           <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} />
         </div>
       </div>

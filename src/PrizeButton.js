@@ -1,7 +1,7 @@
 import React from 'react';
 
 function PrizeButton(props) {
-  const className = 'button-prize';
+  const className = 'button-prize bounce';
   
   const getPrize = (HDURL) => {
     window.open(HDURL);
@@ -10,7 +10,7 @@ function PrizeButton(props) {
 
   if (props.solved) {
     return (
-      <button className={className} type="button" onClick={()=>getPrize(props.HDURL)}>Prize</button>
+      <button className={className} type="button" onClick={()=>getPrize(props.HDURL)}></button>
     );
   } else {
     return null;

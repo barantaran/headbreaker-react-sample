@@ -24,6 +24,8 @@ function PuzzlesComponent() {
         console.log(error);
       }
     }
+    // Reload page
+    window.location.reload();
   }
 
 // Assign clearPuzzleDumps to #shuffle button click

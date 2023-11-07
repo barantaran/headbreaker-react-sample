@@ -109,7 +109,8 @@
 
 #puzzle {
   /* background opacity 90% */
-  background: rgba(0, 0, 0, 0.9);
+  /* background: rgba(0, 0, 0, 0.9); */
+  background: url(/images/dark_rough_sandlike_pattern.png) no-repeat;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -124,5 +125,46 @@
 
 .puzzle-ui {
   margin: -750px 0 0 20;
+  height: 200px;
   z-index: 10000;
+}
+
+.close-btn {
+  display: block;
+  background: url(../images/icons8-close-67.png) no-repeat;
+  width: 80px;
+  height: 80px;
+  border: none;
+  cursor: pointer;
+  margin: -40 0 0 -40;
+}
+
+.button-prize {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: -55px 0 0 40px;
+  background: url(../images/hellish-gift-icon.png) no-repeat;
+  border: none;
+  background-repeat: no-repeat;
+  background-position: left top; 
+  -webkit-animation-duration: 1.5s;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: both; 
+  animation-fill-mode: both;
+  cursor: pointer;
+}
+
+.bounce {
+  animation-name: bounce;
+  animation-timing-function: ease-in-out
+}
+
+@keyframes bounce {
+  0%   { transform: scale(1,1)    translateY(0); }
+  10%  { transform: scale(1.1,.9) translateY(0); }
+  30%  { transform: scale(.9,1.1) translateY(-20px); }
+  50%  { transform: scale(1,1)    translateY(0); }
+  100% { transform: scale(1,1)    translateY(0); }
 }
