@@ -5,7 +5,6 @@ import App from './App';
 import styles from '!raw-loader!./App.css';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import gridCSS from '!raw-loader!bootstrap-4-grid/css/grid.min.css';
-import md5 from 'md5';
 import * as PuzzleUtils from './PuzzleUtils';
 import { PuzzlesContext } from './Contexts';
 import { useContext } from 'react'
@@ -36,8 +35,7 @@ document.getElementById('shuffle').addEventListener('click', clearPuzzleDumps);
       <style>{gridCSS}</style>
       <div className='container'>
         <div className='row'>
-          <div id="puzzle" className='col'>
-          </div>
+          <div id="puzzle" className='col'></div>
         </div>
         <App />
       </div>

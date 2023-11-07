@@ -8,7 +8,7 @@ import Gallery from './Gallery'
 
 export default function App() {
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = React.useState(0);
-  // const [appHidden, setAppHidden] = React.useState(false);
+  const [appHidden, setAppHidden] = React.useState(false);
   const [shuffle, setShuffle] = React.useState(false);
   // const Puzzles = useContext(PuzzlesContext);
 
@@ -33,20 +33,17 @@ export default function App() {
 
   useEffect(() => {
     setShuffle(false);
-  } , [shuffle]);
+  }, [shuffle]);
 
   return (
-    <div className='row gallery'>
-      {/* <div className='col-sm-auto'> */}
-        {/* <button onClick={() => { setAppHidden(!appHidden) }}>Toggle</button> */}
-        {/* <button onClick={() => clearPuzzleDumps()}>Shuffle All</button> */}
-      {/* </div> */}
-        {/* {appHidden ? null : ( */}
-        {false ? null : (
-          <Gallery setPuzzleIndex={setPuzzleIndex} />
-          )}
-          <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={false} shuffle={shuffle} />
-      {/* <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} /> */}
-    </div>
+    appHidden ? <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} /> : (
+      <div className='row gallery'>
+        <Gallery setPuzzleIndex={setPuzzleIndex} />
+        <div className='puzzle-ui'>
+          <button onClick={() => { setAppHidden(!appHidden) }}>Toggle</button>
+          <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} />
+        </div>
+      </div>
+    )
   )
 }

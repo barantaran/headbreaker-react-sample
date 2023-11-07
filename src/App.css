@@ -84,7 +84,7 @@
 .title {
   width: 100%;
   transition: transform 1s;
-  top: 100px;
+  top: 80px;
   position: absolute;
   width: 75%;
   z-index: 10;
@@ -120,4 +120,9 @@
   background-color: rgba(34, 34, 34, 0.9);
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.puzzle-ui {
+  margin: -750px 0 0 20;
+  z-index: 10000;
 }
