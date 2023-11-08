@@ -109,8 +109,8 @@
 
 #puzzle {
   /* background opacity 90% */
-  /* background: rgba(0, 0, 0, 0.9); */
-  background: url(/images/dark_rough_sandlike_pattern.png) no-repeat;
+  background: rgba(0, 0, 0, 1);
+  /* background: url(/images/background_frame_egypt.png) no-repeat; */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -118,7 +118,7 @@
 .gallery {
   width: 1170px;
   height: 250px;
-  background-color: rgba(34, 34, 34, 0.9);
+  background-color: rgba(39, 1, 1, 0.9);
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -131,7 +131,7 @@
 
 .close-btn {
   display: block;
-  background: url(../images/icons8-close-67.png) no-repeat;
+  background: url(../images/icon_close_metallic_67.png) no-repeat;
   width: 80px;
   height: 80px;
   border: none;
