@@ -62,8 +62,9 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
       pieceSize: pieceSize,
       proximity: pieceSize / 6,
       borderFill: pieceSize / 10,
-      strokeWidth: 0,
+      strokeWidth: 5,
       lineSoftness: 0.1,
+      strokeColor: 'black',
       image: puzzleImage,
       fixed: true,
       preventOffstageDrag: true,
@@ -74,6 +75,25 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
     canvas.autogenerate({
       horizontalPiecesCount: pieceQuantity,
       verticalPiecesCount: pieceQuantity
+    });
+
+    canvas.onConnect((_piece, figure, _target, targetFigure) => {
+      // play sound
+      // audio.play();
+  
+      // paint borders on click
+      // of conecting and conected figures
+      figure.shape.stroke('darkred');
+      targetFigure.shape.stroke('darkred');
+      canvas.redraw();
+  
+      setTimeout(() => {
+        // restore border colors
+        // later
+        figure.shape.stroke('black');
+        targetFigure.shape.stroke('black');
+        canvas.redraw();
+      }, 100);
     });
 
     //Try to load puzzle dump from local storage
