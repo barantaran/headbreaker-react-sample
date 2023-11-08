@@ -45,6 +45,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
   }
   let puzzleImage = new Image();
   puzzleImage.src = '/' + Puzzles[currentPuzzle].path;
+  var audio = new Audio('audio/connect.wav');
 
   puzzleImage.onload = () => {
 
@@ -79,7 +80,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
 
     canvas.onConnect((_piece, figure, _target, targetFigure) => {
       // play sound
-      // audio.play();
+      audio.play();
   
       // paint borders on click
       // of conecting and conected figures
