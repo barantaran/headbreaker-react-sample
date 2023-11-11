@@ -16,6 +16,7 @@
   padding: 0 36px;
   perspective: 2500px;
   margin: auto;
+  cursor: pointer;
 }
 
 .cover-image {
