@@ -114,7 +114,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
   }
 
   return (
-      <PrizeButton solved={isSolved} HDURL={Puzzles[currentPuzzle].HDURL}/>
+      <PrizeButton solved={isSolved} HRURL={Puzzles[currentPuzzle].HRURL}/>
   );
 }
 
