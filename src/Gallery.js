@@ -8,7 +8,14 @@ function Gallery({ setPuzzleIndex }) {
     return (
             Puzzles.map((puzzle, index) => (
                 <div className="col" onClick={()=>setPuzzleIndex(index)}>
-                    <GalleryCard key={index} title={puzzle.name} image={puzzle.thumb} description={puzzle.description} link={puzzle.path}/>
+                    <GalleryCard 
+                    key={index} 
+                    title={puzzle.name} 
+                    thumbBg={puzzle.galleryBg} 
+                    thumbChar={puzzle.galleryChar} 
+                    titleImage={puzzle.titleImage}
+                    image={puzzle.image} 
+                    HRlink={puzzle.HRURL}/>
                 </div>
             ))
     );

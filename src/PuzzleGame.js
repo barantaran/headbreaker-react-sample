@@ -25,7 +25,7 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
   if(canvas != null )dumpPuzzle(canvas);
   
   useEffect(() => {
-    let key = PuzzleUtils.getPuzzleSolvedFlagName(Puzzles[currentPuzzle].path);
+    let key = PuzzleUtils.getPuzzleSolvedFlagName(Puzzles[currentPuzzle].image);
     let solved = localStorage.getItem(key);
     if (solved) {
       setIsSolved(true);
@@ -44,8 +44,8 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
     );
   }
   let puzzleImage = new Image();
-  puzzleImage.src = '/' + Puzzles[currentPuzzle].path;
-  var audio = new Audio('audio/connect.wav');
+  puzzleImage.src = '/' + Puzzles[currentPuzzle].image;
+  let audio = new Audio('audio/connect.wav');
 
   puzzleImage.onload = () => {
 
@@ -81,20 +81,6 @@ function PuzzleGame({ id, currentPuzzle, appHidden, shuffle }) {
     canvas.onConnect((_piece, figure, _target, targetFigure) => {
       // play sound
       audio.play();
-  
-      // paint borders on click
-      // of conecting and conected figures
-      figure.shape.stroke('darkred');
-      targetFigure.shape.stroke('darkred');
-      canvas.redraw();
-  
-      setTimeout(() => {
-        // restore border colors
-        // later
-        figure.shape.stroke('black');
-        targetFigure.shape.stroke('black');
-        canvas.redraw();
-      }, 100);
     });
 
     //Try to load puzzle dump from local storage

@@ -15,8 +15,8 @@ function PuzzlesComponent() {
 
   const clearPuzzleDumps = () => {
     for (let i = 0; i < Puzzles.length; i++) {
-      let keyDump = PuzzleUtils.getPuzzleDumpName(Puzzles[i].path);
-      let keySolved = PuzzleUtils.getPuzzleSolvedFlagName(Puzzles[i].path);
+      let keyDump = PuzzleUtils.getPuzzleDumpName(Puzzles[i].image);
+      let keySolved = PuzzleUtils.getPuzzleSolvedFlagName(Puzzles[i].image);
       try {
         localStorage.removeItem(keyDump);
         localStorage.removeItem(keySolved);

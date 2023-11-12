@@ -1,12 +1,12 @@
 
-export const GalleryCard = ({ title, image, description, link }) => {
+export const GalleryCard = ({ title, thumbBg, thumbChar, titleImage, image, HRlink }) => {
     return (
                 <div className="card">
                     <div className="wrapper">
-                        <img src="images/photorealistic_German_Shepherd_background_200.png" className="cover-image" alt="Mythrill" />
+                        <img src={thumbBg} className="cover-image" alt="Mythrill" />
                     </div>
-                    <img src="https://ggayane.github.io/css-experiments/cards/dark_rider-title.png" className="title" alt="Mythrill" />
-                    <img src="images/photorealistic_German_Shepherd_in_a_spacesuit_200_nbg.png" className="character" alt="Mythrill" />
+                    <img src={titleImage} className="title" alt="Mythrill" />
+                    <img src={thumbChar} className="character" alt="Mythrill" />
                 </div>
     );
 };
