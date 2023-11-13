@@ -37,6 +37,7 @@ export default function App() {
 
   return (
     appHidden ? <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} /> : (
+      <>
       <div className='row gallery'>
         <Gallery setPuzzleIndex={setPuzzleIndex} />
         <div className='puzzle-ui'>
@@ -44,6 +45,14 @@ export default function App() {
           <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} />
         </div>
       </div>
+      <div class="row justify-content-center" id='store-link'>
+        <div class="col-3">
+          <a href="https://chromewebstore.google.com/" rel="noreferrer" target="_blank" >
+            <img src="images/rating_bar.png" alt="" />
+          </a>
+        </div>
+      </div>
+      </>
     )
   )
 }
