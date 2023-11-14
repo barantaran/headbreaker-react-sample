@@ -5,7 +5,6 @@ import Gallery from './Gallery'
 // import { PuzzlesContext } from './Contexts';
 // import * as PuzzleUtils from './PuzzleUtils';
 
-
 export default function App() {
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = React.useState(0);
   const [appHidden, setAppHidden] = React.useState(false);
@@ -45,7 +44,7 @@ export default function App() {
           <PuzzleGame id="puzzle" currentPuzzle={currentPuzzleIndex} appHidden={appHidden} shuffle={shuffle} />
         </div>
       </div>
-      <div class="row justify-content-center" id='store-link'>
+      <div className="row justify-content-center" id='store-link'>
         <div class="col-3">
           <a href="https://chromewebstore.google.com/" rel="noreferrer" target="_blank" >
             <img src="images/rating_bar.png" alt="" />
